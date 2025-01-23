@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smile Detector</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="lock-screen">
+        <video id="webcam" autoplay playsinline width="640" height="480"></video>
+        <canvas id="overlay" width="640" height="480"></canvas>
+        <div class="tex">
+
+            <h1 >Smile to Unlock</h1>
+            <div class="spinner"></div>
+            <p>Please smile at the camera to unlock the site!</p>
+        </div>
+    </div>
+    <div class="head">365 DAYS</div>
+    
+    <div class="player">
+        <img src="assets/vinyl.png" alt="Vinyl Disc" class="vinyl" id="vinyl">
+        <h2 id="song-title">Song Title</h2>
+        <div class="controls">
+            <button id="play-pause">1</button>
+        </div>
+        <!-- Regular Daily Message -->
+        <div id="daily-message"></div>  
+        <!-- Surprise Message (will be displayed on the 24th of each month) -->
+    </div>
+    
+    <div id="surprise-message"></div> 
+    <script>
+        const webcamElement = document.getElementById('webcam');
+        const canvas = document.getElementById('overlay');
+        const ctx = canvas.getContext('2d');
+
+        async function setupCamera() {
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: true
+            });
+            webcamElement.srcObject = stream;
+            return new Promise((resolve) => {
+                webcamElement.onloadedmetadata = () => {
+                    resolve();
+                };
+            });
+        }
+
+        async function detectSmile() {
+            const model = await blazeface.load(); // Load BlazeFace model for face detection
+
+            async function predict() {
+                const predictions = await model.estimateFaces(webcamElement, false);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                predictions.forEach(prediction => {
+                    const start = prediction.topLeft;
+                    const end = prediction.bottomRight;
+                    const size = [end[0] - start[0], end[1] - start[1]];
+
+                    // Draw face bounding box
+                    ctx.strokeStyle = "blue";
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(start[0], start[1], size[0], size[1]);
+
+                    // Add "Smiling" label as a placeholder
+                    // Replace this logic with a facial expression model for smile detection
+                    ctx.fillStyle = "green";
+                    ctx.font = "20px Arial";
+                    ctx.fillText("Smiling", start[0], start[1] - 10);
+                });
+
+                requestAnimationFrame(predict);
+            }
+
+            predict();
+        }
+
+        // Initialize the webcam and start detection
+        setupCamera().then(() => {
+            webcamElement.play();
+            detectSmile();
+        });
+
+
+        // Elements for locking and unlocking
+const lockScreen = document.getElementById('lock-screen');
+
+// Unlock the site by hiding the lock screen
+function unlockSite() {
+    lockScreen.style.display = 'none';
+}
+
+// Modify the smile detection function
+async function detectSmileToUnlock() {
+    const model = await blazeface.load(); // Load BlazeFace model for face detection
+
+    async function checkSmile() {
+        const predictions = await model.estimateFaces(webcamElement, false);
+
+        // If a face is detected, unlock the site (replace this logic with actual smile detection later)
+        if (predictions.length > 0) {
+            const prediction = predictions[0];
+            // Example logic: Unlock if the face is wide (placeholder for smile logic)
+            if (prediction.probability && prediction.probability[0] > 0.8) {
+                unlockSite(); // Unlock the site
+                return;
+            }
+        }
+
+        // Continue checking
+        requestAnimationFrame(checkSmile);
+    }
+
+    checkSmile();
+}
+
+// Start webcam and initialize smile detection
+setupCamera().then(() => {
+    webcamElement.play();
+    detectSmileToUnlock();
+});
+
+
+
+
+        const songsWithMessages = [
+        { song: 'songs/Aakhari Apeel - Satinder Sartaj.mp3', message: 'Khore buhe oole khadi sochdi hou,Shayad "SARTAAJ" tenu lochdi hou🥀  ' },
+    { song: 'songs/Aankhon Se Batana Dikshant 128 Kbps.mp3', message: 'Kaagazon par sabne apne lafz likhe,Humne apne jazbaat bhi saja ke hain rakhe ✍🏻' },
+    { song: 'songs/Afreen Afreen - (Raag.Fm).mp3', message: 'Chehra jaisa ke chehra kahin bhi nahi Mahrooh-mahrooh mehjabin-mehjabin' },
+    { song: 'songs/Ajab Si - Om Shanti Om 128 Kbps.mp3', message: 'Kitna kuch kehna hai, phir bhi hai dil mein sawaal kahin Sapnon mein jo roz kaha hai, woh phir se kahun ya nahi?✨' },
+    { song: 'songs/Ajj Din Chadheya Love Aaj Kal 128 Kbps.mp3', message: 'Manga jo mera hai Jata kya tera hai Mene kaun si Tujhse jannat manga li Kaisa khuda hai tu Bas naam ka hai tu Rabba jo teri itni si bhi na chali ' },
+    { song: 'songs/Apa Fer Milaangey - Savi Kahlon 128 Kbps.mp3', message: 'Enna sohna chehra aa, te chehre utte noor bada, Haukeyan ch na langh jaye zindagi, hunda ae dil choor bada ❤️' },
+    { song: 'songs/Bulleya Sultan 128 Kbps.mp3', message: 'Tu yaad kare ya na mujhko Mere jeene mein andaaz tera (I must be missing you right now ) ' },
+    { song: 'songs/Champagne.mp3', message: 'Kya hi bolu just that you are some different kind of soul for real- aadat hi nhi chutti tumahri 🥂' },
+    { song: 'songs/Chand Wargi.mp3', message: 'Accha hai na gaana? (Just like you) 🌙' },
+    { song: 'songs/Dilan Di Gall(DJJOhAL.Com).mp3', message: 'Assi rabb to batheri aari mange, ji pakke sanu rang na mile 💬' },
+    { song: 'songs/Do Pal - Veer-Zaara 128 Kbps.mp3', message: 'Do pal rukka khaabon ka karwan fir chal diye tum kaahan ham kaahan🌱' },
+    { song: 'songs/Dont Know Why.mp3', message: 'Some feelings are hard to explain, but they’re always true. 💖' },
+    { song: 'songs/El Sue o.mp3', message: 'Dreams of you always make me smile. 🌌' },
+    { song: 'songs/Flower & Saints - DjPunjab.Com.Se.mp3', message: 'Every flower reminds me of you. 🌸' },
+    { song: 'songs/Forever.mp3', message: 'I hope to be with you forever. ♾️' },
+    { song: 'songs/Gallan Kariye.mp3', message: 'Every conversation with you is special. 💬' },
+    { song: 'songs/Gulabi Ankhen - The Train (1970) 128 Kbps.mp3', message: 'Your eyes are as mesmerizing as this song. 🌸' },
+    { song: 'songs/Hass Hass - Diljit Dosanjh 128 Kbps.mp3', message: 'This makes me want to laugh and smile with you. 😄' },
+    { song: 'songs/Haule Haule - Rab Ne Bana Di Jodi 128 Kbps.mp3', message: 'Love grows slowly but surely, just like us. 🌱' },
+    { song: 'songs/Ikko-Mikke Title Track - Satinder Sartaaj.mp3', message: 'A song that connects deeply with my soul. 🎶' },
+    { song: 'songs/Ishq Di Baajiyaan - Diljit Dosanjh.mp3', message: 'This reminds me of how lucky I am to love you. ❤️' },
+    { song: 'songs/Ishq.mp3', message: 'The pure essence of love in a song. 💌' },
+    { song: 'songs/Jaan Ke Bhulekhe - Satinder Sartaaj.mp3', message: 'Some memories are unforgettable, like this song. 🎧' },
+    { song: 'songs/Janam.mp3', message: 'This makes me think about how fate brought us together. 🌟' },
+    { song: 'songs/Jeena Jeena Badlapur 128 Kbps.mp3', message: 'Living life feels better with you in it. 🌹' },
+    { song: 'songs/Jhanjar.mp3', message: 'The sound of anklets reminds me of you. 👣' },
+    { song: 'songs/Jo Tum Mere Ho - Anuv Jain 128 Kbps.mp3', message: 'You are mine, and I am yours. 💞' },
+    { song: 'songs/Jogi.mp3', message: 'A beautiful tune for a beautiful soul. 🎶' },
+    { song: 'songs/Kali Teri Gut MTV Unplugged.mp3', message: 'This song feels like dancing in joy with you. 💃' },
+    { song: 'songs/Kinni Kinni Ghost 128 Kbps.mp3', message: 'Our laughter echoes through my heart. 😂' },
+    { song: 'songs/Kitaaban Rehndi Foldi - (Raag.Fm).mp3', message: 'Some stories are best shared with you. 📚' },
+    { song: 'songs/Kooch Na Karin - (Raag.Fm).mp3', message: 'A song that speaks of longing and love. 💭' },
+    { song: 'songs/Kuriye Mind Na Kari 6.mp3', message: 'Don’t worry, I’ll always be here for you. 🤗' },
+    { song: 'songs/Lana-Del-Rey-Diet-Mountain-Dew-(RawPraise.ng).mp3', message: 'This song is as unique as you. 🌈' },
+    { song: 'songs/Let Me Know.mp3', message: 'I’m always here, just let me know. 📞' },
+    { song: 'songs/Lover.mp3', message: 'You are my forever love. 💝' },
+    { song: 'songs/Love-Ya-Diljit-Dosanjh.mp3', message: 'This is a song full of love and affection for you. 💕' },
+    { song: 'songs/Luna.mp3', message: 'You light up my nights like the moon. 🌙' },
+    { song: 'songs/Main Agar Kahoon - Om Shanti Om 128 Kbps.mp3', message: 'If I could say it, I’d say you’re my everything. 🌟' },
+    { song: 'songs/Main Koi Aisa Geet Gaoon - Yes Boss 128 Kbps.mp3', message: 'A song that expresses my feelings perfectly. 🎼' },
+    { song: 'songs/Main Yahaan Hoon - Veer-Zaara 128 Kbps.mp3', message: 'I’m always here for you. 🤝' },
+    { song: 'songs/Mann Ki Lagan Paap 128 Kbps.mp3', message: 'My heart is devoted to you. 💗' },
+    { song: 'songs/Masoomiat.mp3', message: 'This song makes me think of your smile. 😊' },
+    { song: 'songs/Mexico Full Song.mp3', message: 'A joyful song for my joyful love. 🌞' },
+    { song: 'songs/Mil Ke Baithange.mp3', message: 'Together forever. 💑' },
+    { song: 'songs/Mitwa - Kabhi Alvida Naa Kehna 128 Kbps.mp3', message: 'Listen to what the heart says. 🧡' },
+    { song: 'songs/Naina - Crew 128 Kbps.mp3', message: 'Your eyes hold a world of stories. 👁️' },
+    { song: 'songs/Nihaar Lain De - Satinder Sartaaj.mp3', message: 'I can’t stop looking at you. 🥰' },
+    { song: 'songs/Pahadon Mein (RaagJatt.com).mp3', message: 'This song makes me dream of traveling with you. 🏞️' },
+    { song: 'songs/Peed.mp3', message: 'Some pains are worth it for love. ❤️‍🩹' },
+    { song: 'songs/Phir Milenge Chalte Chalte Rab Ne Bana Di Jodi 128 Kbps.mp3', message: 'We’ll meet again on this journey of life. 🚶‍♂️🚶‍♀️' },
+    { song: 'songs/Raat Di Gedi.mp3', message: 'Night rides with you are the best. 🌌' },
+    { song: 'songs/Ruth B. - Dandelions (Lyrics).mp3', message: 'Dandelions in the wind, just like our love. 🌼' },
+    { song: 'songs/Saibo - Shor in the City 128 Kbps.mp3', message: 'Your calm presence feels like this song—soothing and beautiful. 🌸' },
+    { song: 'songs/Sajjan Raazi - Satinder Sartaaj.mp3', message: 'This song speaks of deep love, just like ours. ❤️' },
+    { song: 'songs/Scars.mp3', message: 'No matter the scars, we heal together. 🖤' },
+    { song: 'songs/Shikayat - AUR 128 Kbps.mp3', message: 'Every little complaint only brings us closer. 😊' },
+    { song: 'songs/Sometimes.mp3', message: 'Sometimes all I need is you by my side. 🌻' },
+    { song: 'songs/Still.mp3', message: 'Even in silence, my heart still beats for you. 🔗' },
+    { song: 'songs/Suniyan Suniyan - Juss 320 Kbps.mp3', message: 'Every word of yours is music to my ears. 🎧' },
+    { song: 'songs/Supna.mp3', message: 'You’re my sweetest dream, my supna. 💤' },
+    { song: 'songs/Tere Bin 6.mp3', message: 'Without you, nothing feels complete. 💔' },
+    { song: 'songs/Titli.mp3', message: 'Like a butterfly, you bring colors to my life. 🦋' },
+    { song: 'songs/Tu Hai Kahan-(Mr-Jat.in).mp3', message: 'I keep looking for you everywhere, always. 🧭' },
+    { song: 'songs/Tujh Mein Rab Dikhta Hai Rab Ne Bana Di Jodi 128 Kbps.mp3', message: 'In you, I see my everything. 🙏' },
+    { song: 'songs/Tujhe Kitna Chahne Lage - Kabir Singh 128 Kbps.mp3', message: 'This song reflects how deeply I love you. 💞' },
+    { song: 'songs/Tum Jo Aaye Jindagi - Once Upon A Time In Mumbaai 128 Kbps.mp3', message: 'The moment you came into my life, everything changed for the better. 🌈' },
+    { song: 'songs/Tum Se Hi - Jab We Met 128 Kbps.mp3', message: 'It’s always been you, and it will always be you. 🥰' },
+    { song: 'songs/Udaarian.mp3', message: 'You make me feel free, like flying in the open sky. 🌬️' },
+    { song: 'songs/US.mp3', message: 'No matter where we are, it’s always about us. 🌍' },
+    { song: 'songs/Ve Haaniyaan - Avvy Sra 128 Kbps.mp3', message: 'A perfect song to celebrate our love. 💖' },
+    { song: 'songs/Ve Kamleya Rocky Aur Rani Kii Prem Kahaani 128 Kbps.mp3', message: 'We are crazy in love, just like this song. 💃🕺' },
+    { song: 'songs/Ve Maahi Kesari 128 Kbps.mp3', message: 'You’ll always be my maahi, my love. 🌹' },
+    { song: 'songs/You Are My Soniya - Kabhi Khushi Kabhie Gham 128 Kbps.mp3', message: 'You are my Soniya, my one and only. 💃' },
+    { song: 'songs/Zara Faasley Te.mp3', message: 'Even if we are far apart, our hearts are always connected. 🌌' },
+    { song: 'songs/Zaroor - Djjohal.fm.mp3', message: 'This song makes me feel that we’re meant to be. 🔒' },
+    { song: 'songs/Zikr Tera.mp3', message: 'I always find myself talking about you. 💭' },
+    { song: 'songs/Zulfaan Sarrb 128 Kbps.mp3', message: 'This song makes me think of you, my beautiful one. 💕' }
+    
+    
+];
+
+// This will store the song for each day of the year starting from 24th January
+let songForTheDay = {};
+
+// Initialize the audio and UI elements
+let audio = new Audio();
+const vinyl = document.getElementById('vinyl');
+const playPauseButton = document.getElementById('play-pause');
+const songTitle = document.getElementById('song-title');
+const messageElement = document.getElementById('daily-message'); // This element will display the daily message
+
+let isPlaying = false;
+
+// Function to pick a song based on the day of the year (starting from 24th January)
+function getSongForToday() {
+    const currentDate = new Date();
+    const startDate = new Date(currentDate.getFullYear(), 0, 24); // January 24th (start date)
+
+    if (currentDate < startDate) {
+        // If the current date is before January 24th, don't update the song
+        songTitle.textContent = "The song will start on January 24th!";
+        messageElement.textContent = "";
+        return;
+    }
+
+    // Calculate the number of days since January 24th
+    const dayOfYear = Math.floor((currentDate - startDate) / 86400000);
+
+    if (!songForTheDay[dayOfYear]) {
+        // If the song for this day is not already picked, select it based on dayOfYear
+        const songIndex = dayOfYear % songsWithMessages.length;
+        songForTheDay[dayOfYear] = songsWithMessages[songIndex]; // Store the song for today
+    }
+
+    return songForTheDay[dayOfYear];
+}
+
+function updateSong() {
+    const selectedSong = getSongForToday(); // Get the song for today
+
+    // If the song is null (before January 24th), don't update the UI
+    if (selectedSong === undefined) return;
+
+    audio.src = selectedSong.song;
+    songTitle.textContent = selectedSong.song.split('/').pop().replace('.mp3', '');  // Display song name
+    messageElement.textContent = selectedSong.message; // Show the corresponding message for the song
+
+    // Re-initialize audio with the new song
+    audio.load();
+    console.log("Now playing:", audio.src); // Check if the song path is correct
+    audio.play();  // Start playing the song immediately
+    vinyl.style.animation = 'spin 4s linear infinite'; // Start the vinyl spinning
+}
+
+function playPause() {
+    if (isPlaying) {
+        audio.pause();
+        vinyl.style.animation = 'spin 0s linear infinite';
+        playPauseButton.textContent = '▶️';
+    } else {
+        audio.play();
+        vinyl.style.animation = 'spin 4s linear infinite';
+        playPauseButton.textContent = '⏸️';
+    }
+    isPlaying = !isPlaying;
+}
+
+// Initialize the song and update the UI when the page loads
+updateSong();  // Initialize with the song based on the current day
+
+playPauseButton.addEventListener('click', playPause);
+audio.addEventListener('ended', updateSong);  // Automatically update song when one ends (to simulate new day)
+
+
+// Array of surprise messages for each month (index 0 is for January, index 1 for February, and so on)
+const surpriseMessages = [
+    "Happy 24th January! Here’s a surprise just for you! 🎉❤️", // January
+    "Happy 24th February! A little surprise for the month of love! 💖", // February
+    "Happy 24th March! Here's a surprise as fresh as spring! 🌸", // March
+    "Happy 24th April! A special surprise for you today! 🌞", // April
+    "Happy 24th May! Hope this surprise brightens your day! 🌻", // May
+    "Happy 24th June! A little surprise for the summer vibes! 🌊", // June
+    "Happy 24th July! Here's your surprise for this month! 🌞", // July
+    "Happy 24th August! A surprise to celebrate our journey! 🌺", // August
+    "Happy 24th September! A surprise for you as the seasons change! 🍂", // September
+    "Happy 24th October! A spooky surprise just for you! 🎃", // October
+    "Happy 24th November! A surprise as warm as a cup of cocoa! ☕", // November
+    "Happy 24th December! A festive surprise for you to end the year with joy! 🎄" // December
+];
+
+// Function to check if today is the 24th and show the surprise message
+function showSurpriseNote() {
+    const currentDate = new Date();
+    const dayOfMonth = currentDate.getDate(); // Get the day of the month
+    const month = currentDate.getMonth(); // Get the current month (0 - 11, where 0 is January)
+
+    // If today is the 24th, show the surprise message for the current month
+    if (dayOfMonth === 24) {
+        const surpriseMessageForMonth = surpriseMessages[month]; // Get the surprise message for the current month
+        messageElement.textContent = surpriseMessageForMonth; // Display the surprise message
+    } else {
+        const selectedSong = getSongForToday(); // Get the regular song for today
+        messageElement.textContent = selectedSong.message; // Display the regular message
+    }
+}
+
+// Call this function when the page loads to check for the 24th and show the surprise note
+showSurpriseNote();
+
+    </script>
+</body>
+</html>

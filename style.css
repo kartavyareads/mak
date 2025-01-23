@@ -1,0 +1,207 @@
+/* Control button styling */
+.controls {
+    margin-top: 20px;
+}
+
+/* Button hover effect */
+button:hover {
+    background-color: #88e0ef;
+    transform: scale(1.05);
+}
+
+/* Styling for daily message */
+#daily-message {
+    font-size: 18px;
+    margin-top: 20px;
+    font-style: italic;
+    color: #e0f7fa; /* Light icy color for the regular message */
+    transition: color 0.3s ease-in-out;
+}
+
+#daily-message:hover {
+    color: #88e0ef; /* Slightly brighter icy blue on hover */
+}
+
+/* Styling for the surprise message */
+#surprise-message {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 30px;
+    color: #4fd1c5; /* Bright icy teal for the surprise message */
+    text-transform: uppercase;
+    animation: surprise-animation 2s ease-in-out;
+    transition: color 0.3s ease-in-out, transform 0.3s ease;
+}
+
+#surprise-message:hover {
+    color: #81e6d9;
+    transform: scale(1.1);
+}
+
+/* Keyframe for vinyl spinning animation */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Keyframe for the surprise message animation */
+@keyframes surprise-animation {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* General styling for the body */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Icy gradient */
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: background 0.3s ease-in-out;
+}
+
+/* Lock screen modal */
+#lock-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #56929d;
+    background-color: #f2c4e4; /* Softer opacity */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 10;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#lock-screen h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #ffffff; /* Bright icy teal */
+}
+
+#lock-screen p {
+    font-size: 18px;
+    margin-bottom: 40px;
+    color: #dc89c7; /* Light icy blue */
+    background: rgb(230, 232, 231);
+    padding: 5%;
+    border-radius: 7%;
+    border:8px solid #f2c4ed;
+    font-size: 32px;
+    font-weight: bolder;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+#lock-screen .spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f0fdfd;
+    border-top: 4px solid #8d8c9e;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    position: fixed;
+    top: 44%;
+    left: 49%;
+}
+
+/* Player container */
+.player {
+    padding: 20px;
+    border-radius: 15px;
+    background-color: rgba(0, 50, 75, 0.8); /* Deep icy blue */
+    display: inline-block;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s ease-in-out;
+}
+
+.player:hover {
+    transform: translateY(-5px);
+}
+
+/* Vinyl disc styling */
+.vinyl {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    animation: spin 4s linear infinite;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Song title styling */
+#song-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #f0fdfd; /* Soft icy white */
+}
+
+/* Play/Pause button */
+button {
+    background-color: #4fd1c5;
+    border: none;
+    color: white;
+    font-size: 20px;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+    background-color: #81e6d9;
+    transform: scale(1.1);
+}
+
+/* Webcam styling */
+#webcam {
+    width: 20%;
+    position: relative;
+    top:20vh;
+    left: 1vw;
+    border-radius: 20%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+#webcam:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+}
+
+/* Spinner animation */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.tex{
+    position: relative;
+    top: -25vh;
+
+}

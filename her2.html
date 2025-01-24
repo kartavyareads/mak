@@ -20,7 +20,7 @@
             <p>Please smile at the camera to unlock the site!</p>
         </div>
     </div>
-    <div class="head">365 DAYS</div>
+    <!-- <div class="head">365 DAYS</div> -->
     
     <div class="player">
         <img src="assets/vinyl.png" alt="Vinyl Disc" class="vinyl" id="vinyl">
@@ -129,20 +129,22 @@ setupCamera().then(() => {
 
 
 
-        const songsWithMessages = [
-        { song: 'songs/Aakhari Apeel - Satinder Sartaj.mp3', message: 'Khore buhe oole khadi sochdi hou,Shayad "SARTAAJ" tenu lochdi hou🥀  ' },
-    { song: 'songs/Aankhon Se Batana Dikshant 128 Kbps.mp3', message: 'Kaagazon par sabne apne lafz likhe,Humne apne jazbaat bhi saja ke hain rakhe ✍🏻' },
+const songsWithMessages = [
+    { song: 'songs/Kinni Kinni Ghost 128 Kbps.mp3', message: 'Our laughter echoes through my heart. 😂' },
+    { song: 'songs/Let Me Know.mp3', message: 'I’m always here, just let me know. 📞' },
+    { song: 'songs/Apa Fer Milaangey - Savi Kahlon 128 Kbps.mp3', message: 'Enna sohna chehra aa, te chehre utte noor bada, Haukeyan ch na langh jaye zindagi, hunda ae dil choor bada ❤️' },
+    { song: 'songs/Aakhari Apeel - Satinder Sartaj.mp3', message: 'Khore buhe oole khadi sochdi hou,Shayad "SARTAAJ" tenu lochdi hou🥀  ' },
     { song: 'songs/Afreen Afreen - (Raag.Fm).mp3', message: 'Chehra jaisa ke chehra kahin bhi nahi Mahrooh-mahrooh mehjabin-mehjabin' },
     { song: 'songs/Ajab Si - Om Shanti Om 128 Kbps.mp3', message: 'Kitna kuch kehna hai, phir bhi hai dil mein sawaal kahin Sapnon mein jo roz kaha hai, woh phir se kahun ya nahi?✨' },
-    { song: 'songs/Ajj Din Chadheya Love Aaj Kal 128 Kbps.mp3', message: 'Manga jo mera hai Jata kya tera hai Mene kaun si Tujhse jannat manga li Kaisa khuda hai tu Bas naam ka hai tu Rabba jo teri itni si bhi na chali ' },
-    { song: 'songs/Apa Fer Milaangey - Savi Kahlon 128 Kbps.mp3', message: 'Enna sohna chehra aa, te chehre utte noor bada, Haukeyan ch na langh jaye zindagi, hunda ae dil choor bada ❤️' },
     { song: 'songs/Bulleya Sultan 128 Kbps.mp3', message: 'Tu yaad kare ya na mujhko Mere jeene mein andaaz tera (I must be missing you right now ) ' },
     { song: 'songs/Champagne.mp3', message: 'Kya hi bolu just that you are some different kind of soul for real- aadat hi nhi chutti tumahri 🥂' },
+    { song: 'songs/Ajj Din Chadheya Love Aaj Kal 128 Kbps.mp3', message: 'Manga jo mera hai Jata kya tera hai Mene kaun si Tujhse jannat manga li Kaisa khuda hai tu Bas naam ka hai tu Rabba jo teri itni si bhi na chali ' },
     { song: 'songs/Chand Wargi.mp3', message: 'Accha hai na gaana? (Just like you) 🌙' },
     { song: 'songs/Dilan Di Gall(DJJOhAL.Com).mp3', message: 'Assi rabb to batheri aari mange, ji pakke sanu rang na mile 💬' },
     { song: 'songs/Do Pal - Veer-Zaara 128 Kbps.mp3', message: 'Do pal rukka khaabon ka karwan fir chal diye tum kaahan ham kaahan🌱' },
     { song: 'songs/Dont Know Why.mp3', message: 'Some feelings are hard to explain, but they’re always true. 💖' },
     { song: 'songs/El Sue o.mp3', message: 'Dreams of you always make me smile. 🌌' },
+    { song: 'songs/Aankhon Se Batana Dikshant 128 Kbps.mp3', message: 'Kaagazon par sabne apne lafz likhe,Humne apne jazbaat bhi saja ke hain rakhe ✍🏻' },
     { song: 'songs/Flower & Saints - DjPunjab.Com.Se.mp3', message: 'Every flower reminds me of you. 🌸' },
     { song: 'songs/Forever.mp3', message: 'I hope to be with you forever. ♾️' },
     { song: 'songs/Gallan Kariye.mp3', message: 'Every conversation with you is special. 💬' },
@@ -159,12 +161,10 @@ setupCamera().then(() => {
     { song: 'songs/Jo Tum Mere Ho - Anuv Jain 128 Kbps.mp3', message: 'You are mine, and I am yours. 💞' },
     { song: 'songs/Jogi.mp3', message: 'A beautiful tune for a beautiful soul. 🎶' },
     { song: 'songs/Kali Teri Gut MTV Unplugged.mp3', message: 'This song feels like dancing in joy with you. 💃' },
-    { song: 'songs/Kinni Kinni Ghost 128 Kbps.mp3', message: 'Our laughter echoes through my heart. 😂' },
     { song: 'songs/Kitaaban Rehndi Foldi - (Raag.Fm).mp3', message: 'Some stories are best shared with you. 📚' },
     { song: 'songs/Kooch Na Karin - (Raag.Fm).mp3', message: 'A song that speaks of longing and love. 💭' },
     { song: 'songs/Kuriye Mind Na Kari 6.mp3', message: 'Don’t worry, I’ll always be here for you. 🤗' },
     { song: 'songs/Lana-Del-Rey-Diet-Mountain-Dew-(RawPraise.ng).mp3', message: 'This song is as unique as you. 🌈' },
-    { song: 'songs/Let Me Know.mp3', message: 'I’m always here, just let me know. 📞' },
     { song: 'songs/Lover.mp3', message: 'You are my forever love. 💝' },
     { song: 'songs/Love-Ya-Diljit-Dosanjh.mp3', message: 'This is a song full of love and affection for you. 💕' },
     { song: 'songs/Luna.mp3', message: 'You light up my nights like the moon. 🌙' },
@@ -287,7 +287,7 @@ audio.addEventListener('ended', updateSong);  // Automatically update song when 
 
 // Array of surprise messages for each month (index 0 is for January, index 1 for February, and so on)
 const surpriseMessages = [
-    "Happy 24th January! Here’s a surprise just for you! 🎉❤️", // January
+    "Happy 24th January Mahima.Ek hi wish tumahre liye ki tum hamesha happy raho. Nothing more; Things will come and go, Koi din lucky hoga koi unlucky,but har shaam happy honi chahiye.Pyaare to tum the hi shuru se(ab thode kam hogye ho, ab tum dimag bohot chalane lag gye ho apna but that is also fine - time ke sath tumm bhi bade ho rhe ho.) Glow up to kyu hi wish krna tumhe, ab to dheere dheere buddhe ho rhe ho to vo bhi chala jayega, to bass happy rehna aur haa heathy bhi vo bohot imp hai . Aur to bas moj karo- find new hobbies. new people, new songs(mujhe bhi recommend krdena), new movies(vo mujhse recommendation lelena.) but just domt find new you, you were already perfect. No flaws. Just a kid trying to adapt- I love that Mahima. Like the way you adapt by not bathing days and days in winters, I love that sugli mahima. To ese hi rehna aaj bhi, kal bhi aur parso bhi aur next bdy tak bhi aur agar lage ki badal rhe ho to ek baar shhanti se baith je sochna ki why the changes when you were just perfect.to bss tumko aaj ka din bohot bohot mubark ho but sirf aaj ka hi kyu? Just because its your birthday, nahi na! I think every morning in your life should be as special as the day today. So this website is for you for next 365 days! Each day a different song would be waiting for you to come and listen it , and under those songs each day a message would be there for you(ofc from my side.) par haan even idk know which sing would be on which day because they are set in a random order. So lets see jis din tum aate ho us din konsa song hoga and i warn you each day the song and msg would be lost agar koi miss krte ho to that would not be back. But this is a bit boring - same thing over and over - so i have decided that a long msg would be sent to you on 24th of each month - Atleast 24 to special number hai so yes, aur haa ye msg next day tak gayab ho jayega so if you wish that justtake a screenshot.Stay happy, Stay healthy.    ", // January
     "Happy 24th February! A little surprise for the month of love! 💖", // February
     "Happy 24th March! Here's a surprise as fresh as spring! 🌸", // March
     "Happy 24th April! A special surprise for you today! 🌞", // April
@@ -319,6 +319,7 @@ function showSurpriseNote() {
 
 // Call this function when the page loads to check for the 24th and show the surprise note
 showSurpriseNote();
+
 
     </script>
 </body>
